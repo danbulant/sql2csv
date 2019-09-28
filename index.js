@@ -1,0 +1,71 @@
+const fs = require("fs");
+const configLoc = "config.yml";
+var config = {};
+
+function log(str){
+  if(str == undefined){
+    console.log();
+    return;
+  }
+  if(typeof str != "string"){
+    console.log(str);
+    return;
+  }
+  console.log("[LOG] \x1b[2m" + str + "\x1b[0m");
+}
+function success(str){
+  console.log("[LOG] \x1b[32m" + str + "\x1b[0m");
+}
+function warn(str){
+  console.warn("[WARN] \x1b[33m" + str + "\x1b[0m");
+}
+function error(str){
+  console.error("[ERROR] \x1b[41m" + str + "\x1b[0m");
+}
+log("Starting...");
+var today = new Date();
+var dateTime = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+log("Current time and date: " + dateTime);
+log();
+//read and check config
+var configFile = fs.readFileSync(configLoc);
+if(Buffer.isBuffer(configFile)){
+  configFile = configFile.toString();
+}
+configFile = configFile.split("\n");
+configFile.forEach((line) => {
+  line = line.trim(); //trim line
+  if(line.indexOf("#") != -1) line = line.substr(0, line.indexOf("#"));
+  if(line.indexOf(":") == -1) return;
+  var value = line.substr(line.indexOf(":") + 1, line.length - line.indexOf(":")).trim();
+  if(value == "true") value = true;//string "true" save as literal true
+  if(value == "false") value = false;//same for false
+  if(value == parseInt(value)) value = parseInt(value);//save numbers as integers instead of strings
+  config[line.substr(0, line.indexOf(":")).trim()] = value;
+});
+//check config
+if(config.showNames == undefined){
+  warn("Undefined showNames, using false");
+  config.showNames = false;
+}
+if(config.crlf == undefined){
+  warn("Undefined crlf, using false");
+  config.crlf = false;
+}
+if(config.host == undefined){
+  warn("Undefined crlf, using false");
+  config.host = false;
+}
+if(config.port == undefined){
+  warn("Undefined crlf, using false");
+  config.port = false;
+}
+if(config.username == undefined){
+  warn("Undefined crlf, using false");
+  config.username = false;
+}
+
+if(config.password == undefined){
+  warn("Undefined crlf, using false");
+  config.password = false;
+}
