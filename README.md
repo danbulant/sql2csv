@@ -2,6 +2,10 @@
 
 Convert MySQL SELECT to CSV format
 
+## Config
+
+Configuration is made through config.yml. Althrough the extension is yml, parser is implemented inside of the script and is only capable of reading string in format `key: value`.
+Both key and value are trimmed, passwords with space at end won't work.
 ## Folders
 
 ### Input
