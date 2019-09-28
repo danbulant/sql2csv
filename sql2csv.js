@@ -3,14 +3,20 @@ const { execSync } = require('child_process');
 class sql2csv {
   log(str){
     if(!this.options.logging) return;
-    if(this.options.colors)
-    console.log(this.options.prefix + str + "\x1b[0m");
-    console.log(this.options.prefix + str + "\x1b[0m");
+    if(this.options.colors){
+      console.log(this.options.prefix + str + "\x1b[0m");
+    } else {
+      console.log(this.options.prefix + str);
+    }
   }
 
   warn(str){
     if(!this.options.logging) return;
-    console.warn(this.options.prefix + "\x1b[33m" + str + "\x1b[0m");
+    if(this.options.colors){
+      console.warn(this.options.prefix + "\x1b[33m" + str + "\x1b[0m");
+    } else {
+      console.warn(this.options.prefix + str);
+    }
   }
 
   constructor(options) {
@@ -48,7 +54,7 @@ class sql2csv {
   setOptions(options){
     this.options = options;
   }
-  
+
   //set connection
   setConnection(conn){
     this.conn = conn;
