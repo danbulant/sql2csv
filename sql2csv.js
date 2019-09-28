@@ -56,14 +56,19 @@ class sql2csv {
   query(sql){
     var self = this;
     var startDate = performance.timeOrigin + performance.now();
+    this.log(sql);
     return new Promise((resolve, reject) => {
       this.conn.query(sql, function (err, result) {
-        if (err) reject(err);
+        if (err){reject(err); return }
+        if(result == undefined){reject("undefined result"); return; }
         var csv = "";
         var keys = [];
         var keysEmpty = true;
         result.forEach((row) => {
+          var current = 0;
+          var last = row.length;
           for(var key in row){
+            current++;
             if(keysEmpty) keys[keys.length] = key;
             var column = row[key];
             if(typeof column == "string"){
@@ -72,7 +77,8 @@ class sql2csv {
                 column = '"' + column + '"';
               }
             }
-            csv += column + ",";
+            if(current != last)
+              csv += column + ",";
           }
           keysEmpty = false;
           if(self.options.crlf) csv += "\r";
