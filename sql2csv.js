@@ -76,8 +76,11 @@ class sql2csv {
                 column = '"' + column + '"';
               }
             }
-            if(current != last)
+            if(current != last){
               csv += column + ",";
+            } else {
+              csv += column;
+            }
           }
           keysEmpty = false;
           if(self.options.crlf) csv += "\r";
@@ -85,10 +88,15 @@ class sql2csv {
         });
         if(self.options.showNames){
           var header = "";
+          var current = 0;
+          var last = keys.length;
           keys.forEach((key) => {
+            current++;
             key.replace('"', '""');//double quotes, regarding https://stackoverflow.com/questions/4617935
             key.replace(",", '","');
-            header += key + ",";
+            header += key;
+            if(current != last)
+              header += ",";
           });
           if(self.options.crlf) header += "\r";
           header += "\n";
