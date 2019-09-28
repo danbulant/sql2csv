@@ -87,3 +87,15 @@ var con = mysql.createConnection({
   user: config.username,
   password: config.password
 });
+
+con.connect(function(err) {
+  if (err){
+    console.log("\x1b[31m");
+    console.log(err + "");
+    console.log("\x1b[0m");
+    process.exit(1);
+  }
+  log("MySQL Connected!");
+});
+
+s2c.setConnection(con);
