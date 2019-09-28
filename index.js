@@ -1,5 +1,5 @@
 const fs = require("fs");
-const sql2csv = require("./sql2csv");
+const sql2csv = require("./lib/sql2csv");
 const mysql = require("mysql");
 const configLoc = "config.yml";
 var config = {};

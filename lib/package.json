@@ -1,15 +1,11 @@
 {
   "name": "auto-sql2csv",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert MySQL output to csv format, without dependencies",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "main": "sql2csv.js",
+  "scripts": {},
   "author": "Daniel Bulant (https://danbulant.eu)",
   "license": "MIT",
   "repository": "https://github.com/danbulant/sql2csv",
-  "dependencies": {
-    "mysql": "^2.17.1"
-  }
+  "dependencies": {}
 }
