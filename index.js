@@ -100,17 +100,21 @@ con.connect(function(err) {
     process.exit(1);
   }
   log("\x1b[32mMySQL Connected!");
-});
-
-s2c.setConnection(con);
-
-fs.readdirSync('./input/').forEach(file => {
-  if(fs.statSync(file).isDirectory()) return;//skip directories
-  s2c.query(fs.readFileSync(file))
+  
+  fs.readdirSync('./input/').forEach(file => {
+    file = "./input/" + file;
+    if(fs.statSync(file).isDirectory()) return;//skip directories
+    var query = fs.readFileSync(file);
+    log("Running " + query + " from file " + file);
+    s2c.query(query)
     .then(result => {
       console.log(result.csv);
       log(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms");
       con.end();
     })
     .catch(err => {error(err); process.exit(0)})
+  });
+
 });
+
+s2c.setConnection(con);
