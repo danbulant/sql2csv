@@ -9,7 +9,14 @@ class sql2csv {
       console.log(this.options.prefix + str);
     }
   }
-
+  colorLog(str, color){
+    if(!this.options.logging) return;
+    if(this.options.colors){
+      console.log(this.options.prefix + color + str + "\x1b[0m");
+    } else {
+      console.log(this.options.prefix + str);
+    }
+  }
   warn(str){
     if(!this.options.logging) return;
     if(this.options.colors){
@@ -42,7 +49,7 @@ class sql2csv {
     } else {
       this.warn("Mysql driver check skipped");
     }
-    this.log("\x1b[32mInitialized");
+    this.colorLog("Initialized", "\x1b[32m");
   }
 
   //update certain option
