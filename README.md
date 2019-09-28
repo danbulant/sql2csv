@@ -12,3 +12,6 @@ Make sure the input is save, it's directly executed and not checked for anything
 ### Output
 
 'output' folder is for .cvs files. Output of sql2csv is written to the folder, the name of the file is same as input file except .sql is changed to .cvs.
+
+
+**The folders should be created __before__ running the program. Sql2cvs doesn't create folders and will fail if they don't exists!**
