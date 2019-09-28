@@ -1,4 +1,6 @@
 const fs = require("fs");
+const sql2csv = require("./sql2csv");
+
 const configLoc = "config.yml";
 var config = {};
 
@@ -53,19 +55,19 @@ if(config.crlf == undefined){
   config.crlf = false;
 }
 if(config.host == undefined){
-  warn("Undefined crlf, using false");
-  config.host = false;
+  warn("Undefined host, using localhost");
+  config.host = "localhost";
 }
 if(config.port == undefined){
-  warn("Undefined crlf, using false");
-  config.port = false;
+  warn("Undefined port, using 3306");
+  config.port = 3306;
 }
 if(config.username == undefined){
-  warn("Undefined crlf, using false");
-  config.username = false;
+  warn("Undefined username, using root");
+  config.username = "root";
 }
 
 if(config.password == undefined){
-  warn("Undefined crlf, using false");
-  config.password = false;
+  warn("Undefined password, using nothing");
+  config.password = "";
 }
