@@ -118,7 +118,7 @@ con.connect(function(err) {
       loc = "." + loc;//fix for empty location
       loc += ".csv";
       fs.writeFile(loc, result.csv, { flag: "w"}, (err)=>{if(err)error(err)});
-      log(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms");
+      success(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms");
     })
     .catch(err => {error(err); process.exit(0)})
   });
