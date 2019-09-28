@@ -42,7 +42,7 @@ Usage is pretty straight forward. Currently this package has support only for my
 
 ## Example
 
-`js
+```js
 const sql2csv = require("sql2csv");
 const mysql = require("mysql");
 
@@ -68,4 +68,4 @@ id,column1,column2
 1,Daniel,Bulant
 2,John,Doe
 */
-`
+```

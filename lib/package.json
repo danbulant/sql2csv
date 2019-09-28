@@ -1,6 +1,6 @@
 {
   "name": "auto-sql2csv",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Convert MySQL output to csv format, without dependencies",
   "main": "sql2csv.js",
   "scripts": {},
