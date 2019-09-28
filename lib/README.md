@@ -46,12 +46,26 @@ Usage is pretty straight forward. Currently this package has support only for my
 const sql2csv = require("sql2csv");
 const mysql = require("mysql");
 
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: ""
+});
+
 const s2c = new sql2csv({
   logging: true,//Log to console
   skipMysqlCheck: true,//Skip mysql check, as it's surely there
   colors: true,//Use colors, default value (could be ommited)
   showNames: true,//Show column names in first row
   crlf: false,//Use only linux lf
-  conn: conn //Connection to use
+  conn: con //Connection to use
   });
+
+console.log(s2c.query("SELECT * FROM db.table"));
+/*
+Shows something like
+id,column1,column2
+1,Daniel,Bulant
+2,John,Doe
+*/
 `
