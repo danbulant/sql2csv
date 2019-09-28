@@ -4,6 +4,7 @@ const sql2csv = require("./sql2csv");
 const configLoc = "config.yml";
 var config = {};
 
+//logging functions for colored console. No support for windows cmd.exe (Use powershell!)
 function log(str){
   if(str == undefined){
     console.log();
@@ -24,14 +25,22 @@ function warn(str){
 function error(str){
   console.error("[ERROR] \x1b[41m" + str + "\x1b[0m");
 }
+
 log("Starting...");
 var today = new Date();
 var dateTime = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 log("Current time and date: " + dateTime);
 log();
-//read and check config
+
+const s2c = new sql2csv({
+  logging: true,
+  skipMysqlCheck: true
+});
+
+log();
+//read config
 var configFile = fs.readFileSync(configLoc);
-if(Buffer.isBuffer(configFile)){
+if(Buffer.isBuffer(configFile)){//converts to string if readFileSync returns buffer
   configFile = configFile.toString();
 }
 configFile = configFile.split("\n");
@@ -45,6 +54,7 @@ configFile.forEach((line) => {
   if(value == parseInt(value)) value = parseInt(value);//save numbers as integers instead of strings
   config[line.substr(0, line.indexOf(":")).trim()] = value;
 });
+
 //check config
 if(config.showNames == undefined){
   warn("Undefined showNames, using false");
@@ -68,6 +78,6 @@ if(config.username == undefined){
 }
 
 if(config.password == undefined){
-  warn("Undefined password, using nothing");
+  warn("Undefined password, using (empty)");
   config.password = "";
 }
