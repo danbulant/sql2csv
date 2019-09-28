@@ -35,7 +35,9 @@ log();
 const s2c = new sql2csv({
   logging: true,
   skipMysqlCheck: true,
-  colors: true
+  colors: true,
+  showNames: false,
+  crlf: false
 });
 
 log();
@@ -81,6 +83,8 @@ if(config.password == undefined){
   warn("Undefined password, using (empty)");
   config.password = "";
 }
+if(config.showNames) s2c.setOption("showNames", true);
+if(config.crlf) s2c.setOption("crlf", true);
 
 var con = mysql.createConnection({
   host: config.host,
@@ -99,3 +103,14 @@ con.connect(function(err) {
 });
 
 s2c.setConnection(con);
+
+fs.readdirSync('./input/').forEach(file => {
+  if(fs.statSync(file).isDirectory()) return;//skip directories
+  s2c.query(fs.readFileSync(file))
+    .then(result => {
+      console.log(result.csv);
+      log(`Task from file ${file} done in `` + Math.round(result.end - result.start) + "ms");
+      con.end();
+    })
+    .catch(err => {error(err); process.exit(0)})
+});
