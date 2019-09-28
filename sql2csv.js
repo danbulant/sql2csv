@@ -1,5 +1,5 @@
 const { execSync } = require('child_process');
-
+const { performance } = require('perf_hooks');
 class sql2csv {
   log(str){
     if(!this.options.logging) return;
@@ -55,6 +55,7 @@ class sql2csv {
 
   query(sql){
     var self = this;
+    var startDate = performance.timeOrigin + performance.now();
     return new Promise((resolve, reject) => {
       this.conn.query(sql, function (err, result) {
         if (err) reject(err);
@@ -88,7 +89,9 @@ class sql2csv {
           header += "\n";
           csv = header + csv;
         }
-        resolve(csv);
+        var endDate = performance.timeOrigin + performance.now();
+        var obj = {csv: csv, start: startDate, end: endDate};
+        resolve(obj);
       });
     });
   }
