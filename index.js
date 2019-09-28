@@ -109,7 +109,7 @@ fs.readdirSync('./input/').forEach(file => {
   s2c.query(fs.readFileSync(file))
     .then(result => {
       console.log(result.csv);
-      log(`Task from file ${file} done in `` + Math.round(result.end - result.start) + "ms");
+      log(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms");
       con.end();
     })
     .catch(err => {error(err); process.exit(0)})
