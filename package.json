@@ -1,11 +1,11 @@
 {
   "name": "sql2csv",
   "version": "1.0.0",
-  "description": "",
+  "description": "Convert MySQL output to csv format, without dependencies",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Daniel Bulant",
   "license": "ISC"
 }
