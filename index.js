@@ -102,13 +102,27 @@ con.connect(function(err) {
   log("\x1b[32mMySQL Connected!");
 
   s2c.setConnection(con);
-
+  var running = {
+    aInternal: 0,
+    aListener: function(val) {},
+    set a(val) {
+      this.aInternal = val;
+      this.aListener(val);
+    },
+    get a() {
+      return this.aInternal;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+  }
   fs.readdirSync('./input/').forEach(file => {
     var fileName = file;
     file = "./input/" + file;
     if(fs.statSync(file).isDirectory()) return;//skip directories
     var query = fs.readFileSync(file);
     log("Running " + query + " from file " + file);
+    running.a++;
     s2c.query(query + '')
     .then(result => {
       var loc = "/output/" + fileName;
@@ -119,8 +133,16 @@ con.connect(function(err) {
       loc += ".csv";
       fs.writeFile(loc, result.csv, { flag: "w"}, (err)=>{if(err)error(err)});
       success(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms, saved to "+loc);
+      running.a--;
     })
-    .catch(err => {error(err); process.exit(0)})
+    .catch(err => {error(err); process.exit(0)});
+    running.registerListener(function(val) {
+      if(val == 0){
+        success("Everything done, exiting");
+        process.exit(0);
+      }
+      log(val + " tasks running");
+    });
   });
 
 });
