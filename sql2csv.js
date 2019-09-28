@@ -36,6 +36,7 @@ class sql2csv {
     }
     if(!this.options.prefix) this.options.prefix = "[SQL2CSV] ";
     if(this.options.colors == undefined) this.options.colors = true;
+    if(this.options.crlf == undefined) this.options.crlf = false;
 
     if(!this.options.skipMysqlCheck){
       try {
@@ -53,13 +54,43 @@ class sql2csv {
   }
 
   query(sql){
+    var self = this;
     return new Promise((resolve, reject) => {
       this.conn.query(sql, function (err, result) {
         if (err) reject(err);
-        console.log(result);
-        resolve(result);
+        var csv = "";
+        var keys = [];
+        var keysEmpty = true;
+        result.forEach((row) => {
+          for(var key in row){
+            if(keysEmpty) keys[keys.length] = key;
+            var column = row[key];
+            if(typeof column == "string"){
+              column = column.replace('"', '""');//double quotes, regarding https://stackoverflow.com/questions/4617935
+              if(column.indexOf(",") != -1){
+                column = '"' + column + '"';
+              }
+            }
+            csv += column + ",";
+          }
+          keysEmpty = false;
+          if(self.options.crlf) csv += "\r";
+          csv += "\n";
+        });
+        if(self.options.showNames){
+          var header = "";
+          keys.forEach((key) => {
+            key.replace('"', '""');//double quotes, regarding https://stackoverflow.com/questions/4617935
+            key.replace(",", '","');
+            header += key + ",";
+          });
+          if(self.options.crlf) header += "\r";
+          header += "\n";
+          csv = header + csv;
+        }
+        resolve(csv);
       });
-    }
+    });
   }
   //update certain option
   setOption(name, value){
