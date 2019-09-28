@@ -1,6 +1,7 @@
 package-lock.json
 input
 output
+config.yml
 # Logs
 logs
 *.log
