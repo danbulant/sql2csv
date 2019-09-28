@@ -2,7 +2,7 @@ showNames: true #show names of columns in first row, defaults to false
 crlf: true #use windows crlf instead of linux lf, defaults to false
 
 # Connection:
-host: database-1.cjbcrihhq2n4.us-east-2.rds.amazonaws.com #defaults to "localhost"
+host: localhost #defaults to "localhost"
 port: 3306 #defaults to 3306
-username: user #defaults to "root"
-password: password #defaults to ""(nothing)
+username: root #defaults to "root"
+password:  #defaults to ""(nothing)
