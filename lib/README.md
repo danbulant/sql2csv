@@ -2,6 +2,8 @@
 
 (!https://img.shields.io/npm/v/auto-sql2csv/latest)[https://www.npmjs.com/package/auto-sql2csv]
 
+[![NPM](https://nodei.co/npm/auto-sql2csv.png)](https://nodei.co/npm/auto-sql2csv/)
+
 Run `npm install auto-sql2csv`.
 
 # Why?
@@ -37,3 +39,19 @@ Usage is pretty straight forward. Currently this package has support only for my
 | setOption     | option name, new value | Sets new value to option                                                                                                                       |
 | setOptions    | options                | Overwrites options object with the one provided                                                                                                |
 | setConnection | conn                   | Sets new connection                                                                                                                            |
+
+## Example
+
+`js
+const sql2csv = require("sql2csv");
+const mysql = require("mysql");
+
+const s2c = new sql2csv({
+  logging: true,//Log to console
+  skipMysqlCheck: true,//Skip mysql check, as it's surely there
+  colors: true,//Use colors, default value (could be ommited)
+  showNames: true,//Show column names in first row
+  crlf: false,//Use only linux lf
+  conn: conn //Connection to use
+  });
+`

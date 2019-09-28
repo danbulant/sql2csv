@@ -1,5 +1,7 @@
 # SQL2CSV
 
+Using sql2csv in code? see lib/README.md
+
 Convert MySQL SELECT to CSV format
 
 ## Config
