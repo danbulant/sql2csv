@@ -1,6 +1,6 @@
 # Installation
 
-(!https://img.shields.io/npm/v/auto-sql2csv/latest)[https://www.npmjs.com/package/auto-sql2csv]
+[![NPM](https://img.shields.io/npm/v/auto-sql2csv/latest)](https://www.npmjs.com/package/auto-sql2csv)
 
 [![NPM](https://nodei.co/npm/auto-sql2csv.png)](https://nodei.co/npm/auto-sql2csv/)
 
