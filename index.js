@@ -131,9 +131,11 @@ con.connect(function(err) {
       }
       loc = "." + loc;//fix for empty location
       loc += ".csv";
-      fs.writeFile(loc, result.csv, { flag: "w"}, (err)=>{if(err)error(err)});
-      success(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms, saved to "+loc);
-      running.a--;
+      fs.writeFile(loc, result.csv, { flag: "w"}, (err)=>{
+        if(err) error(err);
+        success(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms, saved to "+loc);
+        running.a--;
+      });
     })
     .catch(err => {error(err); process.exit(0)});
     running.registerListener(function(val) {
