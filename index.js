@@ -1,6 +1,6 @@
 const fs = require("fs");
 const sql2csv = require("./sql2csv");
-
+const mysql = require("mysql");
 const configLoc = "config.yml";
 var config = {};
 
@@ -34,7 +34,8 @@ log();
 
 const s2c = new sql2csv({
   logging: true,
-  skipMysqlCheck: true
+  skipMysqlCheck: true,
+  colors: true
 });
 
 log();
@@ -76,8 +77,13 @@ if(config.username == undefined){
   warn("Undefined username, using root");
   config.username = "root";
 }
-
 if(config.password == undefined){
   warn("Undefined password, using (empty)");
   config.password = "";
 }
+
+var con = mysql.createConnection({
+  host: config.host,
+  user: config.username,
+  password: config.password
+});
