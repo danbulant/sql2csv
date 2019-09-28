@@ -52,6 +52,15 @@ class sql2csv {
     this.colorLog("Initialized", "\x1b[32m");
   }
 
+  query(sql){
+    return new Promise((resolve, reject) => {
+      this.conn.query(sql, function (err, result) {
+        if (err) reject(err);
+        console.log(result);
+        resolve(result);
+      });
+    }
+  }
   //update certain option
   setOption(name, value){
     this.options[name] = value;
