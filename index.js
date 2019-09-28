@@ -95,7 +95,7 @@ con.connect(function(err) {
     console.log("\x1b[0m");
     process.exit(1);
   }
-  log("MySQL Connected!");
+  log("\x1b[32mMySQL Connected!");
 });
 
 s2c.setConnection(con);
