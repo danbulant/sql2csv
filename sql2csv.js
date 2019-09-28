@@ -65,7 +65,7 @@ class sql2csv {
         var keysEmpty = true;
         result.forEach((row) => {
           var current = 0;
-          var last = row.length;
+          var last = Object.keys(row).length;
           for(var key in row){
             current++;
             if(keysEmpty) keys[keys.length] = key;
