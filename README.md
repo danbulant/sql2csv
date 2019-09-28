@@ -6,6 +6,20 @@ Convert MySQL SELECT to CSV format
 
 Configuration is made through config.yml. Althrough the extension is yml, parser is implemented inside of the script and is only capable of reading string in format `key: value`.
 Both key and value are trimmed, passwords with space at end won't work.
+
+Bellow is a table containing information about configuration. An example can be found in config.yml.
+
+
+| Key name  | Default value | Description                     |
+|-----------|---------------|---------------------------------|
+| host      | localhost     | Host to connect to              |
+| port      | 3306          | Port to use                     |
+| username  | root          | Username for connection         |
+| password  |               | Password for given user         |
+| showNames | false         | Show table names in first row   |
+| crlf      | false         | Use crlf (windows) line endings |
+
+
 ## Folders
 
 ### Input
