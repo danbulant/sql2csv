@@ -56,9 +56,8 @@ class sql2csv {
   query(sql){
     var self = this;
     var startDate = performance.timeOrigin + performance.now();
-    this.log(sql);
     return new Promise((resolve, reject) => {
-      this.conn.query(sql, function (err, result) {
+      self.conn.query(sql, function (err, result) {
         if (err){reject(err); return }
         if(result == undefined){reject("undefined result"); return; }
         var csv = "";

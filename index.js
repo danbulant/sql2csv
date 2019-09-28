@@ -100,21 +100,27 @@ con.connect(function(err) {
     process.exit(1);
   }
   log("\x1b[32mMySQL Connected!");
-  
+
+  s2c.setConnection(con);
+
   fs.readdirSync('./input/').forEach(file => {
+    var fileName = file;
     file = "./input/" + file;
     if(fs.statSync(file).isDirectory()) return;//skip directories
     var query = fs.readFileSync(file);
     log("Running " + query + " from file " + file);
-    s2c.query(query)
+    s2c.query(query + '')
     .then(result => {
-      console.log(result.csv);
+      var loc = "/output/" + fileName;
+      if(loc.lastIndexOf(".") != -1){
+        loc = loc.substr(0, loc.lastIndexOf("."));
+      }
+      loc = "." + loc;//fix for empty location
+      loc += ".csv";
+      fs.writeFile(loc, result.csv, { flag: "w"}, (err)=>{if(err)error(err)});
       log(`Task from file ${file} done in ` + Math.round(result.end - result.start) + "ms");
-      con.end();
     })
     .catch(err => {error(err); process.exit(0)})
   });
 
 });
-
-s2c.setConnection(con);
