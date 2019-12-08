@@ -4,9 +4,9 @@
 
 [![NPM](https://nodei.co/npm/auto-sql2csv.png)](https://nodei.co/npm/auto-sql2csv/)
 
-Using sql2csv in code? see lib/README.md
+Using sql2csv programmatically? see lib/README.md
 
-Convert MySQL SELECT to CSV format
+Convert MySQL SELECT output to CSV format
 
 ## Config
 
